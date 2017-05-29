@@ -9,7 +9,7 @@ cp serie ~/bin/serie
 chmod +x ~/bin/serie
 
 echo "Lösche Installer"
-rm -f serie install README.md
+rm -f serie install README.md && rm -rf .git
 cd ..
 rmdir serie
 echo
