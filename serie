@@ -1,5 +1,5 @@
 #!/bin/bash
-version=1.0
+version=1.1
 function showUsage {
 
 	echo "Benutzung: "
@@ -40,7 +40,10 @@ elif [[ "$#" -eq 3 ]]; then
 	echo "$serie,$staffel,$episode,$date" >> ~/.serien
 	exit 0
 elif [[ "$#" -eq 1 ]]; then
-	if [[ "$1" == "list" ]]; then
+	if [[ "$1" == "--version ]] || [[ "$1" == "-v" ]]; then
+		echo "serie Version $version"
+		exit 0
+	elif [[ "$1" == "list" ]]; then
 		echo "Serie,Staffel,Episode,Zeitpunkt" | cat - ~/.serien  | column -ts ","
 		exit 0
 	fi
