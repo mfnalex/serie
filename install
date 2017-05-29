@@ -12,7 +12,7 @@ echo "Lösche Installer"
 rm -f serie install README.md && rm -rf .git
 cd ..
 rmdir serie
-export PWD=$PWD
+
 echo
 echo "serie erfolgreich installiert nach ~/bin/serie"
 exit 0
