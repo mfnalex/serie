@@ -9,5 +9,7 @@ Bash 4 oder höher
 
 ## Benutzung
 > serie
+
 oder
+
 > ~/bin/serie
