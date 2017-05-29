@@ -1,0 +1,11 @@
+#!/bin/bash
+
+if [[ ! -d ~/bin ]]; then
+  mkdir ~/bin
+  echo "Verzeichnis ~/bin erstellt."
+fi
+
+cp serie ~/bin/serie
+chmod +x ~/bin/serie
+echo "serie installiert nach ~/bin/serie"
+exit 0
