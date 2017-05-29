@@ -5,7 +5,7 @@ Behalte den Überblick wie weit du deine Serien gesehen hast!
 Bash 4 oder höher
 
 ## Installation
->> git clone https://github.com/mfnalex/serie ; cd serie ; chmod +x install ; ./install
+> git clone https://github.com/mfnalex/serie ; cd serie ; chmod +x install ; ./install
 
 ## Benutzung
 > serie
