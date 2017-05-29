@@ -7,5 +7,11 @@ fi
 
 cp serie ~/bin/serie
 chmod +x ~/bin/serie
-echo "serie installiert nach ~/bin/serie"
+
+echo "Lösche Installer"
+rm -f serie install README.md
+cd ..
+rmdir serie
+echo
+echo "serie erfolgreich installiert nach ~/bin/serie"
 exit 0
