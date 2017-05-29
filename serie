@@ -1,0 +1,105 @@
+#!/bin/bash
+
+function showUsage {
+
+	echo "Benutzung: "
+	echo "  serie <SERIE> <STAFFEL> <EPISODE>"
+	echo "    Speichert den Stand einer Serie"
+	echo 
+	echo "  serie <SERIE>"
+	echo "    Zeigt Stand einer Serie an"
+	echo
+	echo "  serie <SERIE> next"
+	echo "    Setzt den Stand einer Serie auf die nächste Folge"
+	echo 
+	echo "  serie <SERIE> nexts"
+	echo "    Setzt Stand einer Serie auf erste Episode der nächsten Staffel"
+	echo
+	echo "  serie list"
+	echo "    Zeigt den gesamten Log an"
+	echo 
+	echo "Beispiel:"
+	echo "  serie \"The Middle\" 3 4"
+	echo "    Setzt Stand von The Middle auf S. 3 E. 4"
+
+}
+
+if [[ "$#" -eq 0 ]]; then
+	showUsage
+	exit 1
+elif [[ "$#" -eq 3 ]]; then
+	serie="$1"
+	staffel="$2"
+	episode="$3"
+	date=$(date +"%d.%m.%Y %H:%M:%S")
+
+	echo "Folge von $serie gespeichert:"
+	echo "  Staffel: $staffel"
+	echo "  Episode: $episode"
+
+	echo "$serie,$staffel,$episode,$date" >> ~/.serien
+	exit 0
+elif [[ "$#" -eq 1 ]]; then
+	if [[ "$1" == "list" ]]; then
+		echo "Serie,Staffel,Episode,Zeitpunkt" | cat - ~/.serien  | column -ts ","
+		exit 0
+	fi
+	serieInput="$1"
+	entry=$(cat ~/.serien | grep -i "$serieInput," | tail -n1)
+	serie=$(echo "$entry"|awk -F "," '{print $1}')
+	staffel=$(echo "$entry"|awk -F "," '{print $2}')
+	episode=$(echo "$entry"|awk -F "," '{print $3}')
+	date=$(echo "$entry"|awk -F "," '{print $4}')
+	
+	echo "Zuletzt gesehen von $serie:"
+	echo "  Zeitpunkt: $date"
+	echo "  Staffel $staffel"
+	echo "  Episode $episode"
+	exit 0
+elif [[ "$#" -eq 2 ]]; then
+	if [[ "$2" == "next" ]]; then
+		serie="$1"
+	        entry=$(cat ~/.serien | grep -i "$serie," | tail -n1)
+	        staffel=$(echo "$entry"|awk -F "," '{print $2}')
+        	episode=$(echo "$entry"|awk -F "," '{print $3}')
+		episode=$(($episode+1))
+		date=$(date +"%d.%m.%Y %H:%M:%S")
+
+	        echo "Folge von $serie gespeichert:"
+        	echo "  Staffel: $staffel"
+	        echo "  Episode: $episode"
+
+        	echo "$serie,$staffel,$episode,$date" >> ~/.serien
+		exit 0
+	elif [[ "$2" == "nexts" ]]; then
+		                serie="$1"
+                entry=$(cat ~/.serien | grep -i "$serie," | tail -n1)
+                staffel=$(echo "$entry"|awk -F "," '{print $2}')
+                staffel=$(($staffel+1))
+		episode=1
+                date=$(date +"%d.%m.%Y %H:%M:%S")
+
+                echo "Folge von $serie gespeichert:"
+                echo "  Staffel: $staffel"
+                echo "  Episode: $episode"
+
+                echo "$serie,$staffel,$episode,$date" >> ~/.serien
+                exit 0
+	else
+		echo "Fehler!"
+		showUsage
+		exit 1
+	fi
+else 
+	echo "Fehler: Ungültige Anzahl an Parametern."
+	echo
+	showUsage
+exit 1
+fi
+
+
+
+echo "Unbekannter Fehler!"
+echo
+showUsage
+exit 1
