@@ -1,18 +1,26 @@
 #!/bin/bash
 
+echo "Bereite Installation vor..."
+
 if [[ ! -d ~/bin ]]; then
   mkdir ~/bin
   echo "Verzeichnis ~/bin erstellt."
 fi
 
+if [[ ! -f ~/.serien ]]; then
+    touch ~/.serien
+    echo "Datei ~/.serien erstellt."
+fi
+
+echo "Installiere serie..."
 cp serie ~/bin/serie
 chmod +x ~/bin/serie
 
-echo "Lösche Installer"
+echo "Lösche Installer..."
 rm -f serie install README.md && rm -rf .git
 cd ..
 rmdir serie
-
+echo "Installer gelöscht!"
 echo
 echo "serie erfolgreich installiert nach ~/bin/serie"
 exit 0
