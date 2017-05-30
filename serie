@@ -18,6 +18,9 @@ function showUsage {
 	echo "  serie list"
 	echo "    Zeigt den gesamten Log an"
 	echo 
+	echo "  serie <SERIE> delete"
+	echo "    Löscht alle Episoden der genannten Serie"
+	echo
 	echo "Beispiel:"
 	echo "  serie \"The Middle\" 3 4"
 	echo "    Setzt Stand von The Middle auf S. 3 E. 4"
@@ -88,6 +91,10 @@ elif [[ "$#" -eq 2 ]]; then
 
                 echo "$serie,$staffel,$episode,$date" >> ~/.serien
                 exit 0
+	elif [[ "$2" == "delete" ]]; then
+		cat ~/.serien | grep -vi "$1" > ~/.serien
+		echo "Serie $1 gelöscht."
+		exit 0
 	else
 		echo "Fehler!"
 		showUsage
