@@ -95,7 +95,10 @@ elif [[ "$#" -eq 2 ]]; then
 		serie="$1"
 		timestamp=$(date +%s)
 		cp ~/.serien ~/.serien.$timestamp
-		cat ~/.serien | grep --line-buffered -vi "$serie" >  ~/.serien
+		touch ~/.serien.tmp
+		cat ~/.serien | grep --line-buffered -vi "$serie" >>  ~/.serien.tmp
+		rm -f ~/.serien
+		mv ~/.serien.tmp ~/.serien
 		echo "Serie $1 gelöscht."
 		exit 0
 	else
