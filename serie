@@ -43,7 +43,7 @@ elif [[ "$#" -eq 3 ]]; then
 	echo "$serie,$staffel,$episode,$date" >> ~/.serien
 	exit 0
 elif [[ "$#" -eq 1 ]]; then
-	if [[ "$1" == "--version" ]] || [[ "$1" == "-v" ]]; then
+	if [[ "$1" == "--version" ]] || [[ "$1" == "-v" ]] || [[ "$1" == "version" ]]; then
 		echo "serie Version $version"
 		exit 0
 	elif [[ "$1" == "list" ]]; then
