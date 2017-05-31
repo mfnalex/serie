@@ -92,10 +92,10 @@ elif [[ "$#" -eq 2 ]]; then
                 echo "$serie,$staffel,$episode,$date" >> ~/.serien
                 exit 0
 	elif [[ "$2" == "delete" ]]; then
-		entries=$( )
+		serie="$1"
 		timestamp=$(date +%s)
 		cp ~/.serien ~/.serien.$timestamp
-		cat ~/.serien | grep -vi "$1" >  ~/.serien
+		cat ~/.serien | grep -vi "$serie" >  ~/.serien
 		echo "Serie $1 gelöscht."
 		exit 0
 	else
